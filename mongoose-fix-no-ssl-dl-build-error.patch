@@ -1,0 +1,34 @@
+diff -pruN a/mongoose.c b/mongoose.c
+--- a/mongoose.c	2012-03-11 19:41:35.000000000 -0300
++++ b/mongoose.c	2012-07-05 18:39:35.734964177 -0300
+@@ -270,28 +270,8 @@ typedef struct ssl_ctx_st SSL_CTX;
+ #define CRYPTO_LOCK  1
+ 
+ #if defined(NO_SSL_DL)
+-extern void SSL_free(SSL *);
+-extern int SSL_accept(SSL *);
+-extern int SSL_connect(SSL *);
+-extern int SSL_read(SSL *, void *, int);
+-extern int SSL_write(SSL *, const void *, int);
+-extern int SSL_get_error(const SSL *, int);
+-extern int SSL_set_fd(SSL *, int);
+-extern SSL *SSL_new(SSL_CTX *);
+-extern SSL_CTX *SSL_CTX_new(SSL_METHOD *);
+-extern SSL_METHOD *SSLv23_server_method(void);
+-extern int SSL_library_init(void);
+-extern void SSL_load_error_strings(void);
+-extern int SSL_CTX_use_PrivateKey_file(SSL_CTX *, const char *, int);
+-extern int SSL_CTX_use_certificate_file(SSL_CTX *, const char *, int);
+-extern int SSL_CTX_use_certificate_chain_file(SSL_CTX *, const char *);
+-extern void SSL_CTX_set_default_passwd_cb(SSL_CTX *, mg_callback_t);
+-extern void SSL_CTX_free(SSL_CTX *);
+-extern unsigned long ERR_get_error(void);
+-extern char *ERR_error_string(unsigned long, char *);
+-extern int CRYPTO_num_locks(void);
+-extern void CRYPTO_set_locking_callback(void (*)(int, int, const char *, int));
+-extern void CRYPTO_set_id_callback(unsigned long (*)(void));
++#include <openssl/ssl.h>
++#include <openssl/err.h>
+ #else
+ // Dynamically loaded SSL functionality
+ struct ssl_func {
