@@ -63,7 +63,7 @@ export VERSION=%{version}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_includedir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_libdir},%{_includedir}}
 install -p %{name} $RPM_BUILD_ROOT%{_bindir}
 cp -p %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
