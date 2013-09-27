@@ -4,10 +4,10 @@ Version:	3.1
 Release:	1
 License:	MIT
 Group:		Applications/System
-URL:		http://code.google.com/p/mongoose
 Source0:	http://mongoose.googlecode.com/files/%{name}-%{version}.tgz
 # Source0-md5:	e718fc287b4eb1bd523be3fa00942bb0
 Source1:	%{name}.conf
+URL:		http://code.google.com/p/mongoose
 BuildRequires:	openssl-devel
 # Build changes:
 # http://code.google.com/p/mongoose/issues/detail?id=372
@@ -63,27 +63,24 @@ export VERSION=%{version}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -D -p %{name} $RPM_BUILD_ROOT/%{_bindir}/%{name}
-
-install -D -p %{name}.1 $RPM_BUILD_ROOT/%{_mandir}/man1/%{name}.1
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_includedir}}
+install -p %{name} $RPM_BUILD_ROOT%{_bindir}
+cp -p %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 # -lib subpackage
-export VERSION=%{version}
-install -D -p lib%{name}.so.%{version} \
-		$RPM_BUILD_ROOT/%{_libdir}/lib%{name}.so.$VERSION
-ln -s %{_libdir}/lib%{name}.so.$VERSION \
-		$RPM_BUILD_ROOT/%{_libdir}/lib%{name}.so.${VERSION%.?}
+VERSION=%{version}
+install -p lib%{name}.so.%{version} $RPM_BUILD_ROOT%{_libdir}/lib%{name}.so.$VERSION
+ln -s lib%{name}.so.$VERSION $RPM_BUILD_ROOT%{_libdir}/lib%{name}.so.${VERSION%.?}
 
 # -devel subpackage
-install -D -p %{name}.h $RPM_BUILD_ROOT/%{_includedir}/%{name}.h
-ln -s %{_libdir}/lib%{name}.so.$VERSION \
-		$RPM_BUILD_ROOT/%{_libdir}/lib%{name}.so
+cp -p %{name}.h $RPM_BUILD_ROOT%{_includedir}
+ln -s lib%{name}.so.$VERSION $RPM_BUILD_ROOT%{_libdir}/lib%{name}.so
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post libs -p /sbin/ldconfig
-%postun libs -p /sbin/ldconfig
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
