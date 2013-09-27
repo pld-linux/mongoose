@@ -38,7 +38,7 @@ are using %{name}'s embeddable API to provide web services.
 %package devel
 Summary:	Header files and development libraries for %{name}
 Group:		Development/Libraries
-Requires:	%{name}-lib = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
 This package contains the header files and development libraries for
