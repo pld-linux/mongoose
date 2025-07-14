@@ -48,8 +48,8 @@ comprisable header file.
 
 %prep
 %setup -q -n %{name}
-%patch0 -p1 -b .solib-build
-%patch1 -p1 -b .nossldl-build
+%patch -P0 -p1 -b .solib-build
+%patch -P1 -p1 -b .nossldl-build
 install -p -m 0644  %{SOURCE1} .
 
 %build
